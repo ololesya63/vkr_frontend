@@ -1,0 +1,41 @@
+.step-loader {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 20px;
+    background: #f5f7ff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.step-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d1d5db;
+    transition: all 0.3s ease;
+}
+
+.step-dot.active {
+    background: #facc15; /* желтая */
+}
+
+.step-dot.done {
+    background: #4ade80; /* зеленая */
+}
+
+.step-text {
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+.step-text.visible {
+    color: #111;
+    font-weight: 500;
+}

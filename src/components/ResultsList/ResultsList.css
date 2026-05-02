@@ -1,0 +1,9 @@
+.results-list {
+    max-width: 1200px;
+    margin-top: 1rem;
+    border-bottom: 2px #B0B7C3 solid ;
+}
+
+.results-list:last-of-type {
+    border-bottom: none;
+}

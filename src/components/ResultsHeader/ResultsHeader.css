@@ -1,0 +1,19 @@
+.results-header {
+    display: grid;
+    /* Убедись, что эти пропорции в точности как в ResultsRow */
+    grid-template-columns:  4fr 1.8fr 0.6fr 1fr 1fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    background: #F4F6FF;
+    padding: 1rem 1.5rem;
+
+}
+
+/* Все ячейки в шапке делаем флексами для идеального центрирования */
+.results-header div {
+    display: flex;
+    justify-content: center; /* Центр по горизонтали */
+    align-items: center;     /* Центр по вертикали */
+    color: #2f4de0;
+    font-weight: 600;
+}

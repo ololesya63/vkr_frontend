@@ -1,0 +1,49 @@
+.hero {
+    padding: 5rem 0;
+    width: 100vw;
+    background-image: url("../../assets/fon.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-container {
+    margin: 0 auto;
+    padding: 0 5rem 0 12.5rem;
+}
+
+.hero h1 {
+    font-size: 2.75rem;
+    line-height: 1.2;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    color: #797979;
+    font-size: 1.125rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.sources {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #797979;
+    font-size: 1.125rem;
+}
+
+.badges {
+    display: flex;
+    gap: 0.625rem;
+    align-items: center;
+}
+
+.badge-logo {
+    height: 2.5rem;
+    width: auto;
+    object-fit: contain;
+    border-radius: 0.375rem;
+}

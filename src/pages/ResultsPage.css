@@ -1,0 +1,138 @@
+.results-page-wrapper {
+    width: 100%;
+    background-color: #fff;
+    padding-bottom: 5rem;
+}
+
+
+.search-header {
+
+    max-width: 93.75rem; /* 1500px */
+    margin: 0 auto;
+    padding: 1.25rem 1.875rem; /* 20px сверху/снизу, 30px СБОКУ */
+
+    display: flex;
+    justify-content: flex-start
+
+}
+
+.search-bg-strip {
+    width: 100%;
+    background-color: #F8F9FA;
+    padding: 1.25rem 1.875rem;
+}
+
+
+.main-content-container {
+    max-width: 93.75rem; /* ТЕ ЖЕ 1500px */
+    margin: 0 auto;
+    padding: 0 1.875rem; /* ТЕ ЖЕ 30px СБОКУ */
+}
+
+
+.layout-grid {
+    display: flex;
+    gap: 2.5rem; /* 40px между фильтрами и результатами */
+    align-items: flex-start;
+    margin-top: 1.25rem; /* 20px отступ от серой полосы до контента */
+}
+
+
+.filters-side {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+
+.results-side {
+    flex-grow: 1;
+    min-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    min-height: 660px;
+}
+
+
+.results-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    color: #1a1a1a;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+
+.controls-panel {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+
+.content-render-area {
+    width: 100%;
+    min-height: 660px;
+}
+
+/* Скелетон для списка */
+.skeleton-list-container {
+    width: 100%;
+}
+
+.skeleton-row {
+    display: grid;
+    grid-template-columns: 4fr 1.8fr 0.6fr 1fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.skeleton-product-cell {
+    display: flex;
+    align-items: center;
+}
+
+/* Скелетон для карусели */
+.skeleton-carousel-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+}
+
+.skeleton-card {
+    flex: 1;
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+/* Контейнер для пустого состояния без фильтров */
+.empty-state-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 200px);
+    width: 100%;
+    padding: 2rem;
+}
+
+/* Адаптив */
+@media (max-width: 768px) {
+    .skeleton-row {
+        grid-template-columns: 2fr 1.5fr 0.8fr 0.8fr 0.8fr;
+        gap: 0.5rem;
+        padding: 0.75rem;
+    }
+
+    .skeleton-carousel-container {
+        flex-direction: column;
+    }
+}
+

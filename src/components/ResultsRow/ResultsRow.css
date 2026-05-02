@@ -1,0 +1,179 @@
+/* Основная строка-сетка */
+.results-row {
+    display: grid;
+    /* Убедись, что в ResultsHeader точно такие же пропорции! */
+    grid-template-columns:  4fr 1.8fr 0.6fr 1fr 1fr 1fr;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    transition: background 0.2s;
+}
+
+.results-row:hover {
+    background: #f9fafb;
+}
+
+/* --- КОЛОНКА 1: ТОВАР (Картинка + Текст + Лого маркетплейса) --- */
+.product-cell {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    text-align: left;
+    min-width: 0; /* Чтобы текст обрезался корректно */
+}
+
+.main-product-img {
+    width: 4rem;
+    height: 4rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 4px;
+}
+
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    min-width: 0;
+}
+
+.product-name {
+    font-size: 0.95rem;
+    font-weight: 450;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    color: #000;
+}
+
+/* Логотип площадки (WB/Ozon) ПОД названием */
+.marketplace-logo {
+    width: 1.4rem;
+    height: 1.4rem;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+/* --- ОБЩИЙ СТИЛЬ ДЛЯ ОСТАЛЬНЫХ ЯЧЕЕК (ЦЕНТРИРОВАНИЕ) --- */
+.cell {
+    display: flex;
+    justify-content: center; /* Центр по горизонтали */
+    align-items: center;     /* Центр по вертикали */
+    text-align: center;
+    width: 100%;
+    min-width: 0;
+}
+
+/* --- СПЕЦИФИКАЦИЯ ДЛЯ КОЛОНОК --- */
+
+/* Продавец (ИП/ООО) */
+.seller-name {
+    font-size: 0.9rem;
+    color: #000;
+    margin: 0;
+    width: 100%;
+    word-break: break-word; /* На случай очень длинных имен */
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap
+}
+
+/* Рейтинг */
+.rating-cell {
+    color: #ffa800;
+    font-weight: 700;
+    margin: 0;
+    width: 100%;
+}
+
+/* Цена */
+.price-cell {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #000;
+    margin: 0;
+    width: 100%;
+}
+
+/* Отзывы (если используется класс напрямую) */
+.reviews-cell {
+    font-size: 0.95rem;
+    color: #000;
+}
+.platform-badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+/* Единый стиль для галочки во всех компонентах */
+.original-check {
+    color: #4caf50;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 6px;
+    cursor: help;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+.original-check:hover {
+    transform: scale(1.1);
+}
+
+/* Tooltip при наведении */
+.original-check[data-tooltip] {
+    position: relative;
+}
+
+.original-check[data-tooltip]:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%;
+    right: 0;
+    background-color: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.original-check[data-tooltip]:hover::before {
+    content: '';
+    position: absolute;
+    bottom: 115%;
+    right: 8px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
+    z-index: 10;
+    pointer-events: none;
+}
+.link-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.external-link {
+    color: #1a0dab; /* как у обычных ссылок */
+    text-decoration: underline;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 18px;
+}
+
+.external-link:hover {
+    color: #1d3bd1; /* фиолетовый как visited */
+}
+
+.external-link svg {
+    font-size: 18px;
+}

@@ -1,0 +1,40 @@
+.footer {
+    background: #111827;
+    color: #d1d5db;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.footer-container {
+    max-width: 72rem;
+    margin: 0 auto;
+    padding: 0 5rem;
+}
+
+.footer-logo {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: white;
+}
+
+.footer-logo span {
+    color: #3b82f6;
+}
+
+.footer-description {
+    font-size: 0.875rem;
+    margin-bottom: 2rem;
+    color: #9ca3af;
+}
+
+.footer-divider {
+    height: 0.0625rem;
+    background: #374151;
+    margin: 2rem 0;
+}
+
+.footer-copy {
+    font-size: 0.875rem;
+    color: #6b7280;
+}

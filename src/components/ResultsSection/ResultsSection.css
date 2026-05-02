@@ -1,0 +1,31 @@
+.results-section {
+    background: #ffffff;
+    padding: 5rem 0;
+    width: 100vw;
+}
+
+.results-container {
+    margin: 0 auto;
+    text-align: left;
+}
+
+
+
+.results-placeholder {
+    color: #9ca3af;
+    font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+    .results-section {
+        padding: 3rem 0;
+    }
+
+    .results-container {
+        padding: 0 1.5rem;
+    }
+
+    .results-section h2 {
+        font-size: 1.5rem;
+    }
+}

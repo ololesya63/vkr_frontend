@@ -1,0 +1,89 @@
+.product-carousel-container {
+    width: 100%;
+}
+
+.carousel-wrapper {
+    display: flex;
+    align-items: center;
+    max-width: 1400px;
+}
+
+.carousel-viewport {
+    overflow: hidden;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    width: 65rem;
+}
+
+/* лента */
+.product-carousel {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0 0.5rem;
+    transition: transform 0.5s ease;
+
+    .product-card {
+        flex-shrink: 0;
+    }
+}
+
+
+/* стрелки */
+.carousel-arrow {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    border: none;
+    outline: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    z-index: 10;
+
+    transition: all 0.2s ease;
+}
+
+/* убрать черную обводку */
+.carousel-arrow:focus,
+.carousel-arrow:active {
+    outline: none;
+    box-shadow: none;
+}
+
+/* hover */
+.carousel-arrow:hover:not(:disabled) {
+    transform: translateY(-5%) scale(1.05);
+}
+
+/* активная */
+.carousel-arrow.active {
+    background: #2f4de0;
+}
+
+.carousel-arrow.active svg {
+    color: white;
+}
+
+/* неактивная */
+.carousel-arrow.disabled {
+    background: #e5e7eb;
+    cursor: not-allowed;
+}
+
+.carousel-arrow.disabled svg {
+    color: #9ca3af;
+}
+/* Новая обертка с линией */
+.product-carousel-wrapper {
+    margin-top: 1rem;
+    border-bottom: 2px #B0B7C3 solid;
+    padding-bottom: 1rem;
+}
+
+/* Убираем линию у последнего элемента */
+.product-carousel-wrapper:last-of-type {
+    border-bottom: none;
+}

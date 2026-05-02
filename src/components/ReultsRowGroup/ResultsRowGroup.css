@@ -1,0 +1,31 @@
+.results-group {
+    margin-bottom: 1.5rem;
+    padding: 1rem 0;
+}
+
+/* кнопка */
+.show-more {
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.9rem;
+
+    background: #2f4de0;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+
+    font-size: 0.95rem;
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.show-more:hover {
+    background: #1f3bd1;
+}
+
+.show-more:focus,
+.show-more:active {
+    outline: none;
+    box-shadow: none;
+}
