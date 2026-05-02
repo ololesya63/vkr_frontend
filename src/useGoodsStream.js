@@ -1,23 +1,29 @@
 import { useState, useEffect } from 'react';
 
-export function useGoodsStream(query) {
+export function useGoodsStream(params) {
     const [step, setStep] = useState(0);
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (!query) {
-            setIsLoading(false);
-            return;
-        }
+        if (!params) return;
 
         setIsLoading(true);
         setStep(0);
         setData(null);
         setError(null);
 
-        const eventSource = new EventSource(`http://localhost:3000/goods-stream?query=${encodeURIComponent(query)}`);
+        const queryString = new URLSearchParams({
+            ...params,
+            highRating: params.highRating ? 'true' : 'false',
+            original: params.original ? 'true' : 'false',
+            premium: params.premium ? 'true' : 'false',
+        }).toString();
+
+        const eventSource = new EventSource(
+            `http://localhost:3000/goods-stream?${queryString}`
+        );
 
         eventSource.onmessage = (event) => {
             const parsed = JSON.parse(event.data);
@@ -52,7 +58,7 @@ export function useGoodsStream(query) {
             clearTimeout(timeout);
             eventSource.close();
         };
-    }, [query]);
+    }, [params]);
 
     return { step, data, isLoading, error };
 }

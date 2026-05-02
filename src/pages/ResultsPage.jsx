@@ -20,7 +20,6 @@ const sortOptions = [
     {value: "cheap", label: "Дешевле"},
     {value: "expensive", label: "Дороже"},
     {value: "new", label: "Новинки"},
-    {value: "sale", label: "Распродажа"}
 ];
 
 function ResultsPage() {
