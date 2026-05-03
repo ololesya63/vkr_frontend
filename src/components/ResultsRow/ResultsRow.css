@@ -107,53 +107,8 @@
     align-items: center;
     gap: 8px;
 }
-/* Единый стиль для галочки во всех компонентах */
-.original-check {
-    color: #4caf50;
-    font-size: 16px;
-    font-weight: bold;
-    margin-left: 6px;
-    cursor: help;
-    display: inline-flex;
-    align-items: center;
-    transition: transform 0.2s ease;
-}
 
-.original-check:hover {
-    transform: scale(1.1);
-}
 
-/* Tooltip при наведении */
-.original-check[data-tooltip] {
-    position: relative;
-}
-
-.original-check[data-tooltip]:hover::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: 125%;
-    right: 0;
-    background-color: #333;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 12px;
-    white-space: nowrap;
-    z-index: 10;
-    pointer-events: none;
-}
-
-.original-check[data-tooltip]:hover::before {
-    content: '';
-    position: absolute;
-    bottom: 115%;
-    right: 8px;
-    border-width: 5px;
-    border-style: solid;
-    border-color: #333 transparent transparent transparent;
-    z-index: 10;
-    pointer-events: none;
-}
 .link-cell {
     display: flex;
     align-items: center;

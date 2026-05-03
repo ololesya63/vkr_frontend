@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FiSearch } from "react-icons/fi";
 import "./SearchBar.css";
 
-function SearchBar({ style, onClick, onSearch, value }) {
+function SearchBar({ style, onClick, onSearch, value, disabled = false}) {
     const [searchQuery, setSearchQuery] = useState(value || "");
 
     // Синхронизируем с пропсом value
@@ -13,6 +13,7 @@ function SearchBar({ style, onClick, onSearch, value }) {
     }, [value]);
 
     const handleSearch = () => {
+        if (disabled) return;
         if (searchQuery.trim()) {
             // Поддержка обоих пропсов
             if (onSearch) {
@@ -38,8 +39,9 @@ function SearchBar({ style, onClick, onSearch, value }) {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onKeyPress={handleKeyPress}
+                disabled={disabled}
             />
-            <button className="search-button" onClick={handleSearch}>
+            <button className="search-button" onClick={handleSearch} disabled={disabled}>
                 <FiSearch className="search-icon" />
                 Найти и сравнить
             </button>

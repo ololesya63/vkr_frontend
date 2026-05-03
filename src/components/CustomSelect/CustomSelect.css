@@ -66,3 +66,11 @@
     background: #2f4de0;
     color: white;
 }
+.custom-select.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.custom-select.disabled .select-trigger {
+    cursor: not-allowed;
+}

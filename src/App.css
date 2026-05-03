@@ -40,3 +40,53 @@ main {
   margin: 0 auto;
   padding: 0 20px;
 }
+
+/* Единая галочка для всех компонентов */
+.original-check {
+  color: #4caf50;
+  font-size: 1rem;
+  font-weight: bold;
+  margin-left: 4px;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.original-check:hover {
+  transform: scale(1.1);
+}
+
+/* Tooltip через data-tooltip */
+.original-check[data-tooltip] {
+  position: relative;
+}
+
+.original-check[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.original-check[data-tooltip]:hover::before {
+  content: '';
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: #333 transparent transparent transparent;
+  z-index: 10;
+  pointer-events: none;
+}

@@ -87,7 +87,7 @@
 
 .skeleton-row {
     display: grid;
-    grid-template-columns: 4fr 1.8fr 0.6fr 1fr 1fr;
+    grid-template-columns: 4fr 1.8fr 0.6fr 1fr 1fr 1fr;
     gap: 1.5rem;
     align-items: center;
     padding: 1rem 1.5rem;
