@@ -14,49 +14,65 @@ export function useGoodsStream(params) {
         setData(null);
         setError(null);
 
-        const queryString = new URLSearchParams({
-            ...params,
-            highRating: params.highRating ? 'true' : 'false',
-            original: params.original ? 'true' : 'false',
-            premium: params.premium ? 'true' : 'false',
-        }).toString();
+        const controller = new AbortController();
 
-        const eventSource = new EventSource(
-            `http://localhost:3000/goods-stream?${queryString}`
-        );
+        (async () => {
+            try {
+                const response = await fetch('http://localhost:3000/goods-stream', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(params),
+                    signal: controller.signal,
+                });
 
-        eventSource.onmessage = (event) => {
-            const parsed = JSON.parse(event.data);
-            if (parsed.step) {
-                setStep(parsed.step);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = '';
+                let currentEvent = 'message';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) break;
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop();
+
+                    for (const line of lines) {
+                        if (line === '') { currentEvent = 'message'; continue; }
+                        if (line.startsWith('event: ')) { currentEvent = line.slice(7).trim(); continue; }
+                        if (line.startsWith('data: ')) {
+                            const payload = JSON.parse(line.slice(6));
+                            if (currentEvent === 'done') {
+                                setData(payload);
+                                setIsLoading(false);
+                            } else if (currentEvent === 'error') {
+                                setError(payload.message || 'Ошибка сервера');
+                                setIsLoading(false);
+                            } else if (payload.step) {
+                                setStep(payload.step);
+                            }
+                        }
+                    }
+                }
+            } catch (err) {
+                if (err.name !== 'AbortError') {
+                    setError('Ошибка соединения с сервером');
+                    setIsLoading(false);
+                }
             }
-        };
+        })();
 
-        eventSource.addEventListener('done', (event) => {
-            const parsed = JSON.parse(event.data);
-            setData(parsed);
-            setIsLoading(false);
-            eventSource.close();
-        });
-
-        eventSource.addEventListener('error', () => {
-            setError('Ошибка соединения с сервером');
-            setIsLoading(false);
-            eventSource.close();
-        });
-
-        // Таймаут на случай, если сервер не ответит
         const timeout = setTimeout(() => {
-            if (isLoading) {
-                setError('Превышено время ожидания');
-                setIsLoading(false);
-                eventSource.close();
-            }
-        }, 30000);
+            controller.abort();
+            setError('Превышено время ожидания');
+            setIsLoading(false);
+        }, 600000);
 
         return () => {
             clearTimeout(timeout);
-            eventSource.close();
+            controller.abort();
         };
     }, [params]);
 

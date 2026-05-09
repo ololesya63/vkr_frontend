@@ -117,6 +117,56 @@
     cursor: not-allowed;
     opacity: 0.7;
 }
+.dynamic-filter-item {
+    margin-bottom: 1rem;
+}
+
+.filter-sublabel {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.checkbox-label--between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.checkbox-label__left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.platform-logo {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    border-radius: 3px;
+    flex-shrink: 0;
+}
+
+.show-more-btn {
+    background: none;
+    border: none;
+    color: #2f4de0;
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 0.25rem;
+}
+
+.show-more-btn:hover {
+    text-decoration: underline;
+}
+
+.show-more-btn:focus {
+    outline: none;
+}
+
 /* Адаптив */
 @media (max-width: 768px) {
     .filters-container {

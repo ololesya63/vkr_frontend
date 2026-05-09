@@ -44,20 +44,70 @@ function ResultsPage() {
     const [requestParams, setRequestParams] = useState(null);
 
     // Функция отправки запроса (использует переданные фильтры)
-    const applyFiltersAndSort = (filtersToApply, sortValue) => {
+    const applyFiltersAndSort = (filtersToApply, sortValue, dynSelections = {}) => {
         if (!query) return;
+
+        const wbDynamicFilters = [];
+        const ozonDynamicFilters = [];
+        let forceDisableWb = false;
+        let forceDisableOzon = false;
+
+        for (const filterDef of dynamicFilters) {
+            const { groupName, type, wbKey } = filterDef;
+            const selected = dynSelections[groupName];
+            if (!selected) continue;
+
+            if (type === 'range') {
+                const [min, max] = selected;
+                const defaultMin = Number(filterDef.min);
+                const defaultMax = Number(filterDef.max);
+                if (min === defaultMin && max === defaultMax) continue;
+                if (wbKey) wbDynamicFilters.push({ key: wbKey, type: 'range', min, max });
+                ozonDynamicFilters.push({ name: groupName, type: 'range', min, max });
+            } else if (type === 'text' && selected.length > 0) {
+                const wbIds = [];
+                for (const selVal of selected) {
+                    const valDef = filterDef.values.find(v => v.value === selVal);
+                    if (!valDef) continue;
+                    if (valDef.wbId) wbIds.push(valDef.wbId);
+                    // Если значение есть только на одной платформе — отключаем другую
+                    if (valDef.platforms.length === 1 && valDef.platforms[0] === 'ozon') forceDisableWb = true;
+                    if (valDef.platforms.length === 1 && valDef.platforms[0] === 'wb') forceDisableOzon = true;
+                }
+                if (wbKey && wbIds.length > 0) {
+                    wbDynamicFilters.push({ key: wbKey, type: 'text', ids: wbIds });
+                }
+                const ozonValues = selected.filter(selVal => {
+                    const valDef = filterDef.values.find(v => v.value === selVal);
+                    return valDef?.platforms?.includes('ozon');
+                });
+                if (ozonValues.length > 0) {
+                    ozonDynamicFilters.push({ name: groupName, type: 'text', values: ozonValues });
+                }
+            }
+        }
+
+        const effectivePlatforms = Object.entries(filtersToApply.marketplaces)
+            .filter(([k, v]) => {
+                if (!v) return false;
+                if (k === 'wb' && forceDisableWb) return false;
+                if (k === 'ozon' && forceDisableOzon) return false;
+                return true;
+            })
+            .map(([k]) => k)
+            .join(",");
+
         setRequestParams({
             query,
             minPrice: filtersToApply.priceRange[0],
             maxPrice: filtersToApply.priceRange[1],
-            platforms: Object.entries(filtersToApply.marketplaces)
-                .filter(([, v]) => v)
-                .map(([k]) => k)
-                .join(","),
+            platforms: effectivePlatforms,
             highRating: filtersToApply.highRating,
             original: filtersToApply.isOriginal,
             premium: filtersToApply.premiumSeller,
             sort: sortValue.value,
+            wbDynamicFilters,
+            ozonDynamicFilters,
         });
     };
 
@@ -66,7 +116,7 @@ function ResultsPage() {
         setAppliedFilters(newDraft);
         setDraftFilters(newDraft);
         if (query) {
-            applyFiltersAndSort(newDraft, sort);
+            applyFiltersAndSort(newDraft, sort, dynamicSelections);
         }
     };
 
@@ -87,21 +137,58 @@ function ResultsPage() {
         if (filtersChanged) {
             setAppliedFilters(draftFilters);
         }
-        applyFiltersAndSort(filtersToUse, newSort);
+        applyFiltersAndSort(filtersToUse, newSort, dynamicSelections);
     };
 
     const handleViewChange = (newView) => setView(newView);
 
     const handleSearch = (newQuery) => {
-        navigate(`/results?query=${encodeURIComponent(newQuery)}`);
+        if (newQuery === query) {
+            if (dynamicFilters.length === 0) {
+                fetchDynamicFilters(query);
+            }
+            setAppliedFilters(draftFilters);
+            applyFiltersAndSort(draftFilters, sort, dynamicSelections);
+        } else {
+            navigate(`/results?query=${encodeURIComponent(newQuery)}`);
+        }
     };
 
     // Первоначальная загрузка после появления query
     useEffect(() => {
         if (query) {
-            applyFiltersAndSort(appliedFilters, sort);
+            applyFiltersAndSort(draftFilters, sort, {});
         }
     }, [query]);
+
+    const [dynamicFilters, setDynamicFilters] = useState([]);
+    const [dynamicSelections, setDynamicSelections] = useState({});
+    const [dynamicFiltersLoading, setDynamicFiltersLoading] = useState(false);
+
+    const fetchDynamicFilters = (q) => {
+        if (!q) return;
+        setDynamicFiltersLoading(true);
+        fetch(`http://localhost:3000/dynamic-filters-final?query=${encodeURIComponent(q)}`)
+            .then(r => r.json())
+            .then(data => {
+                setDynamicFilters(data);
+                const init = {};
+                for (const f of data) {
+                    init[f.groupName] = f.type === 'range' ? [Number(f.min), Number(f.max)] : [];
+                }
+                setDynamicSelections(init);
+            })
+            .catch(() => {})
+            .finally(() => setDynamicFiltersLoading(false));
+    };
+
+    useEffect(() => {
+        fetchDynamicFilters(query);
+    }, [query]);
+
+    const handleDynamicChange = (groupName, value) => {
+        setDynamicSelections(prev => ({ ...prev, [groupName]: value }));
+    };
 
     const { step, data, isLoading, error } = useGoodsStream(requestParams);
 
@@ -168,6 +255,10 @@ function ResultsPage() {
                             minPrice={0}
                             maxPrice={150000}
                             disabled={isLoading}
+                            dynamicFilters={dynamicFilters}
+                            dynamicSelections={dynamicSelections}
+                            onDynamicChange={handleDynamicChange}
+                            dynamicFiltersLoading={dynamicFiltersLoading}
                         />
                     </aside>
                     <main className="results-side">
