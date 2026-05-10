@@ -1,4 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+
+const MIN_STEP_MS = 600;
 
 export function useGoodsStream(params) {
     const [step, setStep] = useState(0);
@@ -6,11 +8,38 @@ export function useGoodsStream(params) {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    const serverStepRef = useRef(0);
+    const intervalRef = useRef(null);
+
+    const startStepAdvance = useCallback(() => {
+        if (intervalRef.current) return;
+
+        // первый шаг показываем сразу, остальные — с задержкой
+        setStep(prev => {
+            if (prev < serverStepRef.current) return prev + 1;
+            return prev;
+        });
+
+        intervalRef.current = setInterval(() => {
+            setStep(prev => {
+                if (prev >= serverStepRef.current) {
+                    clearInterval(intervalRef.current);
+                    intervalRef.current = null;
+                    return prev;
+                }
+                return prev + 1;
+            });
+        }, MIN_STEP_MS);
+    }, []);
+
     useEffect(() => {
         if (!params) return;
 
         setIsLoading(true);
         setStep(0);
+        serverStepRef.current = 0;
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
         setData(null);
         setError(null);
 
@@ -51,7 +80,8 @@ export function useGoodsStream(params) {
                                 setError(payload.message || 'Ошибка сервера');
                                 setIsLoading(false);
                             } else if (payload.step) {
-                                setStep(payload.step);
+                                serverStepRef.current = payload.step;
+                                startStepAdvance();
                             }
                         }
                     }
@@ -72,9 +102,11 @@ export function useGoodsStream(params) {
 
         return () => {
             clearTimeout(timeout);
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
             controller.abort();
         };
-    }, [params]);
+    }, [params, startStepAdvance]);
 
     return { step, data, isLoading, error };
 }
