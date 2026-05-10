@@ -5,7 +5,7 @@
 .carousel-wrapper {
     display: flex;
     align-items: center;
-    max-width: 1400px;
+    max-width: 87.5rem;
 }
 
 .carousel-viewport {
@@ -79,7 +79,7 @@
 /* Новая обертка с линией */
 .product-carousel-wrapper {
     margin-top: 1rem;
-    border-bottom: 2px #B0B7C3 solid;
+    border-bottom: 0.125rem #B0B7C3 solid;
     padding-bottom: 1rem;
 }
 

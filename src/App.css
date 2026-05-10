@@ -9,7 +9,7 @@ body {
   color: #000000;
   line-height: 1.6;
   overflow-x: hidden;
-  padding-top: 64px;
+  padding-top: 4rem;
 }
 
 html, body, #root {
@@ -19,7 +19,7 @@ html, body, #root {
 }
 
 #root {
-  padding-top: 64px;
+  padding-top: 4rem;
 }
 
 .App {
@@ -36,9 +36,9 @@ main {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 1.25rem;
 }
 
 /* Единая галочка для всех компонентов */
@@ -46,7 +46,7 @@ main {
   color: #4caf50;
   font-size: 1rem;
   font-weight: bold;
-  margin-left: 4px;
+  margin-left: 0.25rem;
   display: inline-flex;
   align-items: center;
   cursor: pointer;
@@ -70,9 +70,9 @@ main {
   transform: translateX(-50%);
   background-color: #333;
   color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 12px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
   white-space: nowrap;
   z-index: 10;
   pointer-events: none;
@@ -84,7 +84,7 @@ main {
   bottom: 115%;
   left: 50%;
   transform: translateX(-50%);
-  border-width: 5px;
+  border-width: 0.3125rem;
   border-style: solid;
   border-color: #333 transparent transparent transparent;
   z-index: 10;

@@ -6,7 +6,7 @@
     gap: 1.5rem;
     align-items: center;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 0.0625rem solid #e5e7eb;
     transition: background 0.2s;
 }
 
@@ -28,7 +28,7 @@
     height: 4rem;
     object-fit: contain;
     flex-shrink: 0;
-    border-radius: 4px;
+    border-radius: 0.25rem;
 }
 
 .product-info {
@@ -53,7 +53,7 @@
     width: 1.4rem;
     height: 1.4rem;
     object-fit: contain;
-    border-radius: 4px;
+    border-radius: 0.25rem;
 }
 
 /* --- ОБЩИЙ СТИЛЬ ДЛЯ ОСТАЛЬНЫХ ЯЧЕЕК (ЦЕНТРИРОВАНИЕ) --- */
@@ -105,7 +105,7 @@
 .platform-badges {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem;
 }
 
 
@@ -121,8 +121,8 @@
     text-decoration: underline;
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    font-size: 18px;
+    gap: 0.25rem;
+    font-size: 1.125rem;
 }
 
 .external-link:hover {
@@ -130,5 +130,5 @@
 }
 
 .external-link svg {
-    font-size: 18px;
+    font-size: 1.125rem;
 }

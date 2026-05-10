@@ -39,24 +39,24 @@
 
 
 .filters-side {
-    width: 280px;
+    width: 17.5rem;
     flex-shrink: 0;
 }
 
 
 .results-side {
     flex-grow: 1;
-    min-width: 1000px;
+    min-width: 62.5rem;
     display: flex;
     flex-direction: column;
-    min-height: 660px;
+    min-height: 41.25rem;
 }
 
 
 .results-title {
     font-size: 1.5rem;
     font-weight: 600;
-    margin: 0 0 20px 0;
+    margin: 0 0 1.25rem 0;
     color: #1a1a1a;
 
     overflow: hidden;
@@ -70,14 +70,14 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
+    gap: 0.9375rem;
+    margin-bottom: 1.5625rem;
 }
 
 
 .content-render-area {
     width: 100%;
-    min-height: 660px;
+    min-height: 41.25rem;
 }
 
 /* Скелетон для списка */
@@ -91,7 +91,7 @@
     gap: 1.5rem;
     align-items: center;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 0.0625rem solid #f0f0f0;
 }
 
 .skeleton-product-cell {
@@ -109,22 +109,22 @@
 .skeleton-card {
     flex: 1;
     background: white;
-    border-radius: 12px;
+    border-radius: 0.75rem;
     padding: 1rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.05);
 }
 /* Контейнер для пустого состояния без фильтров */
 .empty-state-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: calc(100vh - 200px);
+    min-height: calc(100vh - 12.5rem);
     width: 100%;
     padding: 2rem;
 }
 
 /* Адаптив */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
     .skeleton-row {
         grid-template-columns: 2fr 1.5fr 0.8fr 0.8fr 0.8fr;
         gap: 0.5rem;
